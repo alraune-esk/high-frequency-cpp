@@ -31,8 +31,8 @@ int main() {
 
     // Simulate latency to Australia from each city for each minute of the week
     std::cout << "Latency to Australia (Sydney) from major cities around the world for each minute of the week:" << std::endl;
-    for (int day = 0; day < daysInWeek; ++day) {
-        for (int minute = 0; minute < minutesInDay; ++minute) {
+    for (int day = 0; day < daysInWeek; day++) {
+        for (int minute = 0; minute < minutesInDay; minute++) {
             std::cout << "Day " << (day + 1) << ", Minute " << minute << ":" << std::endl;
             for (const auto& city : cityLatencies) {
                 int latency = city.second + randomLatency(1, 10); // Add random fluctuation
