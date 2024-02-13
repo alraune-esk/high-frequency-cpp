@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include <latencySim.h>
+
 
 using namespace std;
 
@@ -50,6 +52,11 @@ public:
 };
 
 int main() {
+
+    // timing 
+    auto start = std::chrono::high_resolution_clock::now();
+
+
     HighFrequencyTrading trader(10000.0); // Initial cash: $10,000
 
     // Simulate price updates
@@ -60,5 +67,14 @@ int main() {
         trader.printStatus();
     }
     cout << randomLatency(10, 100) << std::endl;
+
+    // end of timing
+    {
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+        std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
+    }
+
+
     return 0;
 }
