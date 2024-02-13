@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <latencySim.h>
 
 using namespace std;
 
@@ -58,6 +59,6 @@ int main() {
         trader.trade();
         trader.printStatus();
     }
-
+    cout << randomLatency(10, 100) << std::endl;
     return 0;
 }
