@@ -2,6 +2,7 @@
 #include <vector>
 #include <chrono>
 #include <latencySim.h>
+#include <priceSim.h>
 
 
 using namespace std;
@@ -66,7 +67,24 @@ int main() {
         trader.trade();
         trader.printStatus();
     }
-    cout << randomLatency(10, 100) << std::endl;
+
+    {
+        std::vector<Stock> stockPrices = generateStockPrices();
+
+        // Print out the generated stock prices
+        for (const auto& stock : stockPrices) {
+            std::cout << "Stock: " << stock.name << ", Price: $" << stock.price << std::endl;
+        }
+    }
+
+    {
+        std::vector<CountryLatency> latencies = generateLatencies();
+
+        // Print out the generated network latency values
+        for (const auto& latency : latencies) {
+            std::cout << "Country: " << latency.country << ", Latency: " << latency.latency << " ms" << std::endl;
+        }
+    }
 
     // end of timing
     {
