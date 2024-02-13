@@ -7,48 +7,191 @@
 
 using namespace std;
 
-class HighFrequencyTrading {
-private:
-    vector<double> prices;  // Store historical prices
-    double cash;            // Available cash
-    double position;        // Current position (negative for short, positive for long)
+int counter;
+bool checkA(){
+    counter++;
+    return (counter % 10) == 0;
+}
+bool checkB(){
+    return false;
+}
+bool checkC(){
+    return false;
+}
+bool checkD(){
+    return false;
+}
+bool checkE(){
+    return false;
+}
+bool checkF(){
+    return false;
+}
+bool checkG(){
+    return false;
+}
 
-public:
-    HighFrequencyTrading(double initialCash) : cash(initialCash), position(0.0) {}
+void handleErrorA(){
 
-    void updatePrice(double newPrice) {
-        prices.push_back(newPrice);
+}
+void handleErrorB(){
+    
+}
+void handleErrorC(){
+    
+}
+void handleErrorD(){
+    
+}
+void handleErrorE(){
+    
+}
+void handleErrorF(){
+    
+}
+void handleErrorG(){
+    
+}
+
+
+
+void hotPath(){
+
+}
+
+static void branching(){
+    counter = 0;
+    for(int i = 0; i < 1000000; i++)
+    {
+        if(checkA()){
+            handleErrorA();
+        }
+        else if(checkB()){
+            handleErrorB();
+        }
+        else if(checkC()){
+            handleErrorC();
+        }
+        else if(checkD()){
+            handleErrorD();
+        }
+        else if(checkE()){
+            handleErrorE();
+        }
+        else if(checkF()){
+            handleErrorF();
+        }
+        else if(checkG()){
+            handleErrorG();
+        }
+        else{
+            hotPath();
+        }
     }
 
-    void trade() {
-        if (prices.size() < 2) {
-            cout << "Insufficient data for trading\n";
-            return;
+}
+
+int checkAll(){
+    counter++;
+    return(counter % 10) == 0 ? 1 : 0;
+}
+
+void handleAll(int flag){
+    if(flag == 1){
+        handleErrorA();
+    }
+}
+
+static void reducedBranching(){
+    counter = 0;
+    for(int i = 0; i < 1000000; i++){
+        int flag = checkAll();
+        if(flag){
+            handleAll(flag);
         }
-
-        double currentPrice = prices.back();
-        double previousPrice = prices[prices.size() - 2];
-
-        // Simple strategy: Buy if price rises, sell if price falls
-        if (currentPrice > previousPrice) {
-            // Buy
-            double amountToBuy = cash / currentPrice;  // Invest all available cash
-            cash -= amountToBuy * currentPrice;        // Deduct cash used for buying
-            position += amountToBuy;                    // Increase position
-            cout << "Bought " << amountToBuy << " units at price " << currentPrice << endl;
-        } else if (currentPrice < previousPrice) {
-            // Sell
-            double amountToSell = position;  // Sell all current position
-            cash += amountToSell * currentPrice;  // Add cash from selling
-            position = 0;                        // Reset position
-            cout << "Sold " << amountToSell << " units at price " << currentPrice << endl;
-        } else {
-            cout << "No trade made, price remains the same\n";
+        else{
+            hotPath();
         }
     }
 
-    void printStatus() {
-        cout << "Cash: $" << cash << ", Position: " << position << " units\n";
+}
+
+
+
+// Function to determine whether to buy, sell, or hold based on a moving average crossover strategy
+std::string tradingStrategy(const std::vector<Stock>& prices) {
+    // Calculate the moving average over the last 5 prices
+    double sum = 0.0;
+    for (size_t i = prices.size() > 5 ? prices.size() - 5 : 0; i < prices.size(); ++i) {
+        sum += prices[i].price;
+    }
+    double movingAverage = sum / std::min(static_cast<size_t>(prices.size()), static_cast<size_t>(5));
+
+
+    //reducedBranching();
+    branching();
+
+    // constexpr int kSize = 10000000;  
+    // std::vector<int> data(kSize);
+    // std::vector<int> indices(kSize);
+    // for(auto& index : indices) {
+    //     index = rand() % kSize;
+    // }
+  
+    // int sumCold = 0;
+    //     // Access data in random order
+    // for (int i = 0; i < kSize; ++i) {
+    //   sumCold += data[indices[i]];
+    // }
+
+    // int sum_warm = 0;
+    // for (int i = 0; i < kSize; ++i) {
+    //   sum_warm += data[i];
+    // }
+   
+ 
+    // // Run the benchmark
+    // int sumWarm = 0;
+    // // Access data in sequential order again
+    // for (int i = 0; i < kSize; ++i) {
+    //     sumWarm += data[i];
+    // }
+ 
+  
+    // int unrolling = 0;
+    // for(int i = 0; i < 10000000; i+=4)
+    // {
+    //     unrolling += 4;
+    // }
+    // unrolling = 0;
+    // for(int i = 0; i < 10000000; i+=4)
+    // {
+    //     unrolling += 4;
+    // }
+    // unrolling = 0;
+    // for(int i = 0; i < 10000000; i+=4)
+    // {
+    //     unrolling += 4;
+    // }
+    // unrolling = 0;
+    // for(int i = 0; i < 10000000; i+=4)
+    // {
+    //     unrolling += 4;
+    // }
+    // unrolling = 0;
+    // for(int i = 0; i < 10000000; i+=4)
+    // {
+    //     unrolling += 4;
+    // }
+
+    // Determine the current price trend based on the last price and the moving average
+    double lastPrice = prices.back().price;
+    if (lastPrice > movingAverage) {
+        return "Buy";
+    } else if (lastPrice < movingAverage) {
+        return "Sell";
+    } else {
+        return "Hold";
     }
 };
 
@@ -57,17 +200,6 @@ int main() {
     // timing 
     auto start = std::chrono::high_resolution_clock::now();
 
-
-    HighFrequencyTrading trader(10000.0); // Initial cash: $10,000
-
-    // Simulate price updates
-    vector<double> simulatedPrices = {100.0, 102.0, 98.0, 105.0, 101.0, 200.0, 110.0, 210.0, 130.0, 203.0, 120.0};
-    for (double price : simulatedPrices) {
-        trader.updatePrice(price);
-        trader.trade();
-        trader.printStatus();
-    }
-
     {
         std::vector<Stock> stockPrices = generateStockPrices();
 
@@ -75,6 +207,10 @@ int main() {
         for (const auto& stock : stockPrices) {
             std::cout << "Stock: " << stock.name << ", Price: $" << stock.price << std::endl;
         }
+        cout << tradingStrategy(stockPrices) << "\n";
+        stockPrices = generateStockPrices();
+        cout << tradingStrategy(stockPrices) << "\n";
+
     }
 
     {
