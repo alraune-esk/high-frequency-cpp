@@ -22,8 +22,8 @@ double measureExecutionTime(std::vector<T>& vec, T divisor) {
     auto startTime = std::chrono::high_resolution_clock::now();
     performDivision(vec, divisor);
     auto endTime = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> execTime = endTime - startTime;
-    return execTime.count();
+    std::chrono::duration<double, std::milli> duration = endTime - startTime;
+    return duration.count();
 }
 
 int main() {
@@ -37,8 +37,8 @@ int main() {
     fillVector(signedVec, static_cast<int>(-static_cast<int>(VECTOR_SIZE) / 2));
     fillVector(unsignedVec, 0u);
     int sampleCount = 10;
-    double totalSignedTime;
-    double totalUnsignedTime;
+    double totalSignedTime, totalUnsignedTime;
+
     for (int i = 0; i < sampleCount; i++)
     {
     // Call measureExecutionTime with matching divisor types

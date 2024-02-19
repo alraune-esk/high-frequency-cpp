@@ -44,22 +44,21 @@ double measureExecutionTime(Func func, const std::vector<int>& data, int thresho
 }
 
 int main() {
-    const size_t DATA_SIZE = 10000000; // 10 million elements
+    const size_t DATA_SIZE = 10000000;
     std::vector<int> data(DATA_SIZE);
     int sampleCount = 10;
-    double totalBranchReduction;
-    double totalNonBranchReduction;
+    double totalBranchReduction, totalNonBranchReduction;
     prepareData(data);
     
     for (int i = 0; i < sampleCount; i++)
     {
     double timeIf = measureExecutionTime(countIf, data, 50);
     totalNonBranchReduction += timeIf;
-    std::cout << "Execution time with if-statement: " << timeIf << " milliseconds\n";
+    std::cout << "Execution time without Branch Reduction: " << timeIf << " milliseconds\n";
 
     double timeArithmetic = measureExecutionTime(countArithmetic, data, 50);
     totalBranchReduction += timeArithmetic;
-    std::cout << "Execution time with arithmetic: " << timeArithmetic << " milliseconds\n";
+    std::cout << "Execution time with Branch Reduction: " << timeArithmetic << " milliseconds\n";
     }
 
     std::cout << "Average time without Branch Reduction over " << sampleCount << " executions: " << totalNonBranchReduction / sampleCount << "\n";

@@ -46,8 +46,8 @@ int main() {
     std::vector<int> vec(ARRAY_SIZE);
     initialize(vec);
     int sampleCount = 10;
-    double totalNPF;
-    double totalPF;
+    double totalNPF, totalPF;
+
     for (int i = 0; i < sampleCount; i++)
     {
     double timeNPF = measureExecutionTime(sumNonPrefetching, vec);

@@ -37,8 +37,7 @@ int main() {
     // Fill the array with some data
     std::fill(data.begin(), data.end(), 1);
     // Total times
-    double totalCacheCold;
-    double totalCacheWarm;
+    double totalCacheCold, totalCacheWarm;
 
     for (int i = 0; i < sampleCount; i++)
     {

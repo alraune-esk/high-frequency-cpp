@@ -4,10 +4,13 @@ Purpose:
 To explore and demonstrate a practical application of techniques and design patterns for Low-Latency applications with a focus on High-Frequency Trading context.
 
 Techniques explored:
-Use of constexpr
 Cache-warming
 Loop unrolling
-Short-circuiting
+Lock-free programming
+SIMD
+Signed and unsigned INTs
+Prefetching
+Branch Reduction
 
 These techniques are implemented within the context of a simplified High-Frequency Trading algorithm.
 Signals, such as stock price are randomly generated as input.

@@ -41,8 +41,7 @@ int main() {
     std::vector<float> b(ARRAY_SIZE, 2.0f); // Initialized with 2.0
     std::vector<float> result(ARRAY_SIZE, 0.0f);
     int sampleCount = 10;
-    double totalNonSIMD; 
-    double totalSIMD;
+    double totalNonSIMD, totalSIMD;
 
     for (int i = 0; i < sampleCount; i++)
     {

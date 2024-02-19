@@ -25,8 +25,7 @@ void incrementLockFree(int n) {
 
 int main() {
     int sampleCount = 15;
-    std::chrono::duration<double> totalNonLockFree;
-    std::chrono::duration<double> totalLockFree;
+    std::chrono::duration<double> totalNonLockFree, totalLockFree;
     for (int i = 0; i < sampleCount; i++){
     
     const int incrementsPerThread = 100000;
@@ -40,9 +39,9 @@ int main() {
     }
     for (auto& t : threads) t.join();
     auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-    totalNonLockFree += elapsed;
-    std::cout << "Non-lock-free version time: " << elapsed.count() << "s\n";
+    std::chrono::duration<double> duration = end - start;
+    totalNonLockFree += duration;
+    std::cout << "Non-lock-free version time: " << duration.count() << "s\n";
 
     // Reset counter
     counter = 0;
@@ -55,9 +54,9 @@ int main() {
     }
     for (auto& t : threads) t.join();
     end = std::chrono::high_resolution_clock::now();
-    elapsed = end - start;
-    totalLockFree += elapsed;
-    std::cout << "Lock-free version time: " << elapsed.count() << "s\n";
+    duration = end - start;
+    totalLockFree += duration;
+    std::cout << "Lock-free version time: " << duration.count() << "s\n";
     }
     auto averageNonLockFree = totalNonLockFree / sampleCount;
     auto averageLockFree = totalLockFree / sampleCount;
